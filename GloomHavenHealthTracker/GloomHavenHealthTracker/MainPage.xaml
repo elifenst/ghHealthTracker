@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GloomHavenHealthTracker"
+             x:Class="GloomHavenHealthTracker.MainPage">
+	<ContentPage.Resources>
+		<local:OpacityConverter 
+             x:Key="CanStartOpacityConverter"
+			 True="1"
+			 False="0.3" />
+	</ContentPage.Resources>
+	<ContentPage.Content>
+        <StackLayout Orientation="Vertical" Padding="30" Spacing="10">
+
+			<Label Text="Monsters:"
+				HorizontalOptions="Center"
+				VerticalOptions="CenterAndExpand"
+				   FontFamily="Pirata One"
+				   FontSize="20">
+				<!--<Label.FontFamily>
+					<OnPlatform x:TypeArguments="x:String">
+						<On Platform="UWP">/Assets/Fonts/PirataOne-Regular.ttf</On>
+						
+					</OnPlatform>
+				</Label.FontFamily>-->
+			</Label>
+
+			<Button Text="View Character Sheets"
+					VerticalOptions="Center"
+					FontFamily="Nyala"
+                    HorizontalOptions="Center"
+                    Clicked="GoToCharSheets" />
+			<ListView x:Name="MonsterList"
+                     ItemsSource="{Binding Monsters}" HorizontalOptions="Center" ItemTapped="OnItemTapped" SeparatorColor="Black">
+
+				<ListView.ItemTemplate>
+                    <DataTemplate>
+
+						<ViewCell>
+							<ViewCell.View>
+								<Frame Padding="10"
+									   Margin="5"
+									   BorderColor="Black"
+									   BackgroundColor="White"
+									   CornerRadius="10">
+										<Grid ColumnSpacing="0" RowSpacing="5" Padding="0">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="45" />
+												<RowDefinition Height="45" />
+												<RowDefinition Height="45" />
+												<RowDefinition Height="25" />
+										</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition Width="*" />
+												<ColumnDefinition Width="80" />
+												<ColumnDefinition Width="80" />
+												<ColumnDefinition Width="80" />
+												<ColumnDefinition Width="80" />
+												<ColumnDefinition Width="80" />
+												<ColumnDefinition Width="80" />
+												<ColumnDefinition Width="80" />
+												<ColumnDefinition Width="80" />
+											</Grid.ColumnDefinitions>
+
+										<Label Text="{Binding Name}"
+											   TextColor="Black"
+											   FontFamily="Pirata One"
+											   FontSize="25"
+											   HorizontalOptions="Start"
+											   VerticalOptions="End"
+											   Grid.Column="0"
+											   Grid.Row="0"
+											   Grid.ColumnSpan="2"
+											   Margin="10,10,10,0" >
+										</Label>
+
+										<!--<Label Grid.Column="0"
+											   Grid.Row="1"
+											   Grid.ColumnSpan="2"
+											   Text="{Binding Health}"
+											   FontSize="11"
+											   HorizontalOptions="StartAndExpand"
+											   Margin="10,0,0,0" />-->
+										<StackLayout Orientation ="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+											<Image Source="Assets/health.png"
+												   WidthRequest="25"
+												   Aspect="AspectFit"
+												   VerticalOptions="Center"
+												   HorizontalOptions="Start"/>
+											
+											<Label Text="{Binding Health}"
+												   FontFamily="Nyala"
+												   FontSize="20"
+												VerticalOptions="Center" 
+												HorizontalOptions="Center">
+												
+											</Label>
+										</StackLayout>
+
+										<Button Text="-"
+												VerticalOptions="Start"
+												HorizontalOptions="Start"
+												FontFamily="Pirata One"
+												Command="{Binding SubtractHealthCommand}"
+												Grid.Row="2"
+												Grid.Column="0"
+												Margin="10,0,5,10" />
+											
+											<Button Text="+"
+												VerticalOptions="Start"
+												HorizontalOptions="Start"
+													FontFamily="Pirata One"
+												Command="{Binding AddHealthCommand}"
+												Grid.Row="2"
+												Grid.Column="1"
+												Margin="0,0,10,10" />
+
+										<ImageButton Aspect="AspectFit"
+													 Command="{Binding togglePoisonedCommand}"
+											   Opacity="{Binding poisoned, Converter={StaticResource CanStartOpacityConverter}}"
+											   VerticalOptions="Center"
+											   HorizontalOptions="End"
+											   Source="Assets/Icon_Poisoned.png"
+											   Grid.Column="2"
+											   Grid.Row="0"
+											   Grid.RowSpan="2"
+											   Margin="10"/>
+											
+										<ImageButton Aspect="AspectFit"
+												Command="{Binding toggleDisarmedCommand}"
+											   Opacity="{Binding disarmed, Converter={StaticResource CanStartOpacityConverter}}"
+											   VerticalOptions="Center"
+											   HorizontalOptions="End"
+											   Source="Assets/Icon_Disarm.png"
+											   Grid.Column="3"
+											   Grid.Row="0"
+											   Grid.RowSpan="2"
+											   Margin="10"/>
+											
+										<ImageButton Aspect="AspectFit"
+										       Command="{Binding toggleStunnedCommand}"
+											   Opacity="{Binding stunned, Converter={StaticResource CanStartOpacityConverter}}"
+											   VerticalOptions="Center"
+											   HorizontalOptions="End"
+											   Source="Assets/Icon_Stunned.png"
+											   Grid.Column="4"
+											   Grid.Row="0"
+											   Grid.RowSpan="2"
+											   Margin="10"/>
+											
+										<ImageButton Aspect="AspectFit"
+											   Command="{Binding toggleConfusedCommand}"
+											   Opacity="{Binding confused, Converter={StaticResource CanStartOpacityConverter}}"
+											   VerticalOptions="Center"
+											   HorizontalOptions="End"
+											   Source="Assets/Icon_Confused.png"
+											   Grid.Column="5"
+											   Grid.Row="0"
+											   Grid.RowSpan="2"
+											   Margin="10"/>
+											
+										<ImageButton Aspect="AspectFit"
+											   VerticalOptions="Center"
+											   HorizontalOptions="Center"
+											   Command="{Binding toggleCrippledCommand}"
+											   Opacity="{Binding crippled, Converter={StaticResource CanStartOpacityConverter}}"
+											   Source="Assets/Icon_Crippled.png"
+											   Grid.Column="6"
+											   Grid.Row="0"
+											   Grid.RowSpan="2"
+											   Margin="10"/>
+										<ImageButton Aspect="AspectFit"
+											   VerticalOptions="Center"
+											   HorizontalOptions="Center"
+											   Command="{Binding toggleWoundedCommand}"
+											   Opacity="{Binding wounded, Converter={StaticResource CanStartOpacityConverter}}"
+											   Source="Assets/Icon_Wounded.png"
+											   Grid.Column="7"
+											   Grid.Row="0"
+											   Grid.RowSpan="2"
+											   Margin="10"/>
+											
+										<ImageButton Aspect="AspectFit"
+											   VerticalOptions="Center"
+											   HorizontalOptions="Center"
+											   Command="{Binding toggleInvisibleCommand}"
+											   Opacity="{Binding invisible, Converter={StaticResource CanStartOpacityConverter}}"
+											   Source="Assets/invisibility.jpg"
+											   Grid.Column="8"
+											   Grid.Row="0"
+											   Grid.RowSpan="2"
+											   Margin="10"/>
+											
+										<ImageButton Aspect="AspectFit"
+											   VerticalOptions="Center"
+											   HorizontalOptions="Center"
+											   Command="{Binding toggleStrongCommand}"
+											   Opacity="{Binding strong, Converter={StaticResource CanStartOpacityConverter}}"
+											   Source="Assets/strength.png"
+											   Grid.Column="9"
+											   Grid.Row="0"
+											   Grid.RowSpan="2"
+											   Margin="10"/>
+											
+										<StackLayout x:Name="notes" Orientation ="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+											<Image Source="Assets/notes.png"
+												   VerticalOptions="Center"
+												   HorizontalOptions="Start"/>
+											
+											<Label Text="{Binding Special}"
+												   FontSize="12"
+												   FontFamily="Nyala"
+												VerticalOptions="Center" 
+												HorizontalOptions="Center"/>
+											
+										</StackLayout>
+										<StackLayout x:Name="attack" Orientation ="Horizontal" Grid.Row="3" Grid.Column="4">
+											<Image Source="Assets/attack.png"
+												   VerticalOptions="Center"
+												   HorizontalOptions="Center"/>
+											
+											<Label Text="{Binding Attack}"
+												   FontFamily="Nyala"
+												VerticalOptions="Center" 
+												HorizontalOptions="Center"/>
+											
+										</StackLayout>
+										<StackLayout x:Name="move" Orientation ="Horizontal" Grid.Row="3" Grid.Column="5">
+											<Image Source="Assets/flying.jpg"
+												   VerticalOptions="Center"
+												   HorizontalOptions="Center"/>
+											
+											<Label Text="{Binding Move}"
+												   FontFamily="Nyala"
+												VerticalOptions="Center" 
+												HorizontalOptions="Center"/>
+											
+										</StackLayout>
+											
+										<StackLayout x:Name="range" Orientation ="Horizontal" Grid.Row="3" Grid.Column="6">
+											
+											<Image Source="Assets/range.png"
+												   VerticalOptions="Center"
+												   HorizontalOptions="Center"/>
+											
+											<Label Text="{Binding Range}"
+												   FontFamily="Nyala"
+												VerticalOptions="Center" 
+												HorizontalOptions="Center"/>
+											
+										</StackLayout>
+										<StackLayout x:Name="shield" Orientation ="Horizontal" Grid.Row="3" Grid.Column="7">
+											<Image Source="Assets/shield.jpg"
+												   VerticalOptions="Center"
+												   HorizontalOptions="Center"/>
+											<Label Text="{Binding Shield}"
+												   FontFamily="Nyala"
+												VerticalOptions="Center" 
+												HorizontalOptions="Center"/>
+										</StackLayout>
+										<StackLayout x:Name="flying" Orientation ="Horizontal" Grid.Row="3" Grid.Column="8">
+											<Image Source="Assets/wings.jpg"
+												   VerticalOptions="Center"
+												   HorizontalOptions="Center"
+												   IsVisible="{Binding Flying}"/>
+										</StackLayout>
+										<Button Text="Delete Monster"
+												FontFamily="Nyala"
+											HorizontalOptions="Center"
+											VerticalOptions="Center"
+											Command="{Binding DeleteCommand}"
+											Grid.Row="3"
+											Grid.Column="9"
+											FontSize="10"
+											/>
+
+
+									</Grid>
+								</Frame>
+								<!--<StackLayout>
+									<Label Text="{Binding Name}"></Label>
+
+									<TextCell Text="{Binding Name}" Detail="{Binding currentHealth}">
+
+									</TextCell>
+								</StackLayout>-->
+							</ViewCell.View>
+						</ViewCell>
+
+					</DataTemplate>
+                
+				</ListView.ItemTemplate>
+             </ListView>
+            
+			
+			
+			<Button Text="Add new Monster"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="Center"
+					FontFamily="Nyala"
+                    Clicked="Button_Clicked" />
+			<Button Text="Restore last deleted Monster"
+					VerticalOptions="CenterAndExpand"
+					FontFamily="Nyala"
+					HorizontalOptions="Center"
+					Clicked="RestoreMonster"/>
+
+		</StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

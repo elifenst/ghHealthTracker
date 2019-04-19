@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:forms="clr-namespace:dotMorten.Xamarin.Forms;assembly=dotMorten.Xamarin.Forms.AutoSuggestBox"
+			 x:Class="GloomHavenHealthTracker.Add_Monster"
+             Title="Add Monster">
+    <ContentPage.Content>
+		
+        <StackLayout Padding="30">
+            <Label Text="Add a monster:" FontSize="30"
+				   FontFamily="Pirata One"
+                VerticalOptions="Start" 
+                HorizontalOptions="CenterAndExpand"/>
+			
+            <!--<Entry Completed="entrySet"
+                   IsTextPredictionEnabled="False"
+                   Placeholder="Name, Health"
+				   VerticalOptions="Center"/>-->
+			
+			<Entry x:Name="StartBox"
+				Completed="entrySet"
+				   FontFamily="Nyala"
+                   IsTextPredictionEnabled="False"
+                   Placeholder="Monster Token Number"
+				   VerticalOptions="Center"/>
+
+			<forms:AutoSuggestBox x:Name="NameBox"
+				PlaceholderText="Search for monster" WidthRequest="200"
+                TextChanged="AutoSuggestBox_TextChanged"
+                QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+		</StackLayout>
+    </ContentPage.Content>
+</ContentPage>

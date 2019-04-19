@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GloomHavenHealthTracker.DifficultySelect">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Welcome to Monster Tracker!"
+                VerticalOptions="Start" 
+                HorizontalOptions="CenterAndExpand" 
+				   FontFamily="Pirata One"
+				   FontSize="24"/>
+			<Label Text=""/>
+			<Label Text="Select a Difficulty:"
+				   VerticalOptions="Start"
+				   HorizontalOptions="Center"
+				   FontFamily="Pirata One"
+				   FontSize="14"/>
+			<Picker x:Name="LevelPicker" SelectedIndex="{Binding Level}" HorizontalOptions="Center" VerticalOptions="Center">
+				<Picker.Items >
+					<x:String>0</x:String>
+					<x:String>1</x:String>
+					<x:String>2</x:String>
+					<x:String>3</x:String>
+					<x:String>4</x:String>
+					<x:String>5</x:String>
+					<x:String>6</x:String>
+					<x:String>7</x:String>
+				</Picker.Items>
+			</Picker>
+			<Button Text="Next"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+					FontFamily="Nyala"
+                    Clicked="Button_Clicked" />
+		</StackLayout>
+    </ContentPage.Content>
+</ContentPage>
