@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GloomHavenHealthTracker.AddPerk">
+    <ContentPage.Content>
+        <StackLayout>
+			<Label Text="Add a Perk"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+			<Entry x:Name ="Takable" Placeholder="Takable"/>
+			<Entry x:Name ="Effect" Placeholder="Effect" Completed="PerkId_Completed"/>
+		</StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -111,6 +111,10 @@ namespace GloomHavenHealthTracker
 			{
 				System.Diagnostics.Debug.WriteLine("unable to parse for number");
 			}
+			catch (ArgumentNullException)
+			{
+
+			}
 
 			Monster monster = new Monster(health, MonsterName, attack, move, range, flying, shield, Notes, Number);
 			((MonsterVM)BindingContext).add(monster);

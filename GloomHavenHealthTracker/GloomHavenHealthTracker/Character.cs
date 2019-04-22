@@ -12,8 +12,8 @@ namespace GloomHavenHealthTracker
 	public class Character:INotifyPropertyChanged
     {
 		public event PropertyChangedEventHandler PropertyChanged;
-		private ObservableCollection<Perk> _perks;
-		public ObservableCollection<Perk> Perks
+		private ObservableCollection<PerkWrapper> _perks;
+		public ObservableCollection<PerkWrapper> Perks
 		{
 			get
 			{
@@ -94,9 +94,10 @@ namespace GloomHavenHealthTracker
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Progress"));
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ClassLvl"));
 
+				//Change it in the hero
+				hero.Experience = value;
 				//Now set it in database
-				/*Connection connection = new Connection();
-				connection.ExecuteQuery("UPDATE Hero SET Experience = '" + _experience + "' WHERE HeroID = '" + HeroID+"'");*/
+				myCharacterVM.SaveCharacter(this);
 			}
 		}
 		public string ExperienceDisplay
@@ -189,10 +190,10 @@ namespace GloomHavenHealthTracker
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsRetired"));
 			}
 		}
-		public Character (Hero hero1, List<Item> items, List<Perk> perks, CharacterVM charVM)
+		public Character (Hero hero1, List<Item> items, List<PerkWrapper> perks, CharacterVM charVM)
 		{
 			Items = new ObservableCollection<Item>();
-			Perks = new ObservableCollection<Perk>();
+			Perks = new ObservableCollection<PerkWrapper>();
 			this.hero = hero1;
 			myCharacterVM = charVM;
 			Name = hero.Name;

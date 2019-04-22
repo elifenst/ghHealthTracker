@@ -16,7 +16,7 @@
 				HorizontalOptions="Center"
 				VerticalOptions="CenterAndExpand"
 				   FontFamily="Pirata One"
-				   FontSize="20">
+				   FontSize="25">
 				<!--<Label.FontFamily>
 					<OnPlatform x:TypeArguments="x:String">
 						<On Platform="UWP">/Assets/Fonts/PirataOne-Regular.ttf</On>
@@ -24,12 +24,6 @@
 					</OnPlatform>
 				</Label.FontFamily>-->
 			</Label>
-
-			<Button Text="View Character Sheets"
-					VerticalOptions="Center"
-					FontFamily="Nyala"
-                    HorizontalOptions="Center"
-                    Clicked="GoToCharSheets" />
 			<ListView x:Name="MonsterList"
                      ItemsSource="{Binding Monsters}" HorizontalOptions="Center" ItemTapped="OnItemTapped" SeparatorColor="Black">
 
@@ -300,6 +294,11 @@
                     HorizontalOptions="Center"
 					FontFamily="Nyala"
                     Clicked="Button_Clicked" />
+			<Button Text="View Character Sheets"
+					VerticalOptions="Center"
+					FontFamily="Nyala"
+                    HorizontalOptions="Center"
+                    Clicked="GoToCharSheets" />
 			<Button Text="Restore last deleted Monster"
 					VerticalOptions="CenterAndExpand"
 					FontFamily="Nyala"

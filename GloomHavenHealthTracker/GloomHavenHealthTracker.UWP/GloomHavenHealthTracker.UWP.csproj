@@ -116,6 +116,7 @@
       <Link>Assets\GloomHavenDB.db</Link>
     </Content>
     <Content Include="Assets\attack.png" />
+    <Content Include="Assets\Checked.png" />
     <Content Include="Assets\flying.jpg" />
     <Content Include="Assets\gold.png" />
     <Content Include="Assets\health.png" />
@@ -156,6 +157,7 @@
     <Content Include="Assets\StoreLogo.scale-200.png" />
     <Content Include="Assets\StoreLogo.scale-400.png" />
     <Content Include="Assets\strength.png" />
+    <Content Include="Assets\Unchecked.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />

@@ -14,7 +14,20 @@ namespace GloomHavenHealthTracker
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		private ObservableCollection<Hero> HeroList { get; set; }
-		public ObservableCollection<Character> CharacterList { get; set; }
+		private ObservableCollection<Character> _characterList;
+		public ObservableCollection<Character> CharacterList
+		{
+			get
+			{
+				return _characterList;
+			}
+			set
+			{
+				_characterList = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CharacterList"));
+			}
+
+		}
 		private static object collisionLock = new object();
 		private SQLiteConnection database;
 
@@ -32,10 +45,14 @@ namespace GloomHavenHealthTracker
 			{
 				IEnumerable<Item> items = GetFilteredItems(hero.HeroID);
 				IEnumerable<Perk> perks = GetFilteredPerks(hero.HeroID);
-				Character character = new Character(hero, items.ToList(), perks.ToList(), this);
+				List < PerkWrapper > PerkWs = new List<PerkWrapper>();
+				foreach(Perk perk in perks)
+				{
+					PerkWs.Add(new PerkWrapper(perk));
+				}
+				Character character = new Character(hero, items.ToList(), PerkWs, this);
 				CharacterList.Add(character);
 			}
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CharacterList"));
 		}
 
 		public int NewItem(Item item)
@@ -45,6 +62,16 @@ namespace GloomHavenHealthTracker
 				//Update hero
 				database.Insert(item);
 				return item.ItemPK;
+			}
+		}
+
+		public int NewPerk(Perk perk)
+		{
+			lock (collisionLock)
+			{
+				//Update hero
+				database.Insert(perk);
+				return perk.PerkPK;
 			}
 		}
 
@@ -69,7 +96,35 @@ namespace GloomHavenHealthTracker
 				return query.AsEnumerable();
 			}
 		}
+		public void DeleteItem(Item item)
+		{
+			lock (collisionLock)
+			{
+				database.Delete(item);
+			}
+		}
+		public void DeletePerk(Perk perk)
+		{
+			lock (collisionLock)
+			{
+				database.Delete(perk);
+			}
+		}
+		public void DeleteCharacter(Character character)
+		{
+			foreach(var item in character.Items)
+			{
+				DeleteItem(item);
+			}
+			foreach(var perk in character.Perks)
+			{
+				DeletePerk(perk.perk);
+			}
+			HeroList.Remove(character.hero);
+			CharacterList.Remove(character);
+			database.Delete(character.hero);
 
+		}
 		public void AddNewCharacter(Character character)
 		{
 			HeroList.Add(character.hero);
@@ -150,6 +205,9 @@ namespace GloomHavenHealthTracker
 			{
 				//Update hero
 				database.Insert(hero);
+				Character newChar = new Character(hero, new List<Item>(), new List<PerkWrapper>(), this);
+				this.CharacterList.Add(newChar);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CharacterList"));
 				return hero.HeroID;
 			}
 		}

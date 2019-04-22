@@ -1,7 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GloomHavenHealthTracker.CharacterDisplay">
+			 xmlns:local="clr-namespace:GloomHavenHealthTracker"
+			 x:Class="GloomHavenHealthTracker.CharacterDisplay">
+	<ContentPage.Resources>
+		<local:ButtonOnConverter 
+             x:Key="CanStartButtonOnConverter"
+			 Checked="Assets/Checked.png"
+			 Unchecked="Assets/Unchecked.png" />
+		<local:ButtonEnabledConverter
+			x:Key="CanStartButtonEnabledConverter"
+			True="1"
+			False="0"/>
+	</ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout x:Name="Main" Orientation="Vertical">
 			<StackLayout x:Name="Header"
@@ -39,7 +50,7 @@
 						   PlaceholderColor="Black"/>
 					<StackLayout x:Name="ProgressStuff" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="5,10">
 						<Label Text="{Binding Level}" HorizontalOptions="Start"/>
-						<ProgressBar x:Name="ProgressBar" Progress="{Binding Progress}" HorizontalOptions="FillAndExpand" Margin="5"/>
+						<ProgressBar x:Name="ProgressBar" Progress="{Binding Progress}" HorizontalOptions="FillAndExpand" Margin="5" ProgressColor="Black" BackgroundColor="White"/>
 						<Label Text="{Binding NextLevel}" HorizontalOptions="End"/>
 					</StackLayout>
 					
@@ -78,16 +89,16 @@
 							</ListView.ItemTemplate>
 						</ListView>
 					</StackLayout>
-					<Button x:Name="addItem" Text="Add Item" Pressed="AddItem_Pressed"/>
+					<Button x:Name="addItem" Text="Add Item" Pressed="AddItem_Pressed" FontFamily="Nyala" HorizontalOptions="Center" BackgroundColor="White" BorderColor="Black"/>
 				</StackLayout>
 				<StackLayout Orientation="Vertical" x:Name="RightColumn" Margin="80,5">
-					<Label Text="Talents"
+					<Label Text="Perks"
 						   FontSize="25"
 						   VerticalOptions="Start"
 						   HorizontalOptions="Center"
 						   FontFamily="Pirata One"/>
 					<ListView x:Name="TalentList"
-							  ItemsSource="{Binding Perks}" HorizontalOptions="Center" SeparatorColor="Black">
+							  ItemsSource="{Binding Perks}" HorizontalOptions="Center" SeparatorColor="Black" VerticalOptions="Start">
 						<ListView.ItemTemplate>
 							<DataTemplate>
 								<ViewCell>
@@ -97,8 +108,10 @@
 									   BorderColor="Black"
 									   BackgroundColor="White"
 									   CornerRadius="10">
-											<StackLayout Orientation="Vertical">
-												<Label Text="{Binding Text}"
+											<StackLayout Orientation="Horizontal">
+												<ImageButton x:Name="Perk1" Source="{Binding Button1, Converter={StaticResource CanStartButtonOnConverter}}" IsVisible="{Binding Button1Avail, Converter={StaticResource CanStartButtonEnabledConverter}}" Aspect="AspectFit" WidthRequest="15" Clicked="Perk1_Clicked"/>
+												<ImageButton x:Name="Perk2" Source="{Binding Button2, Converter={StaticResource CanStartButtonOnConverter}}" IsVisible="{Binding Button2Avail, Converter={StaticResource CanStartButtonEnabledConverter}}" Aspect="AspectFit" WidthRequest="15" Clicked="Perk2_Clicked"/>
+												<Label Text="{Binding Effect}"
 													   FontSize="15"
 													   FontFamily="Nyala"/>
 											</StackLayout>
@@ -110,9 +123,10 @@
 							</DataTemplate>
 						</ListView.ItemTemplate>
 					</ListView>
+					<Button x:Name="addPerk" Text="Add Perk" Pressed="AddPerk_Pressed" FontFamily="Nyala" HorizontalOptions="Center" BackgroundColor="White" BorderColor="Black" VerticalOptions="Start"/>
 				</StackLayout>
 			</StackLayout>
-
+			<Button x:Name="delete" Text="DELETE CHARACTER" Pressed="Delete_Pressed" FontFamily="Nyala" HorizontalOptions="Center" BackgroundColor="White" BorderColor="Black" VerticalOptions="Start"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
