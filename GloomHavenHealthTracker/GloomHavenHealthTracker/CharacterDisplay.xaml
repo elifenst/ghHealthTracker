@@ -34,13 +34,18 @@
 			</StackLayout>
 			<StackLayout x:Name="Body" Orientation="Horizontal"
 						 HorizontalOptions="CenterAndExpand">
-				<StackLayout Orientation="Vertical" x:Name="LeftColumn" Margin="80,20">
-					<Label Text="Experience:"
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<StackLayout Grid.Column ="0" Orientation="Vertical" x:Name="LeftColumn" Margin="80,20">
+						<Label Text="Experience:"
 						   FontFamily="Pirata One"
 						   FontSize="20"
 						   VerticalOptions="Start"
 						   HorizontalOptions="Center"/>
-					<Entry x:Name="ExperienceBox"
+						<Entry x:Name="ExperienceBox"
 						Completed="entrySet"
 						FontFamily="Pirata One"
 						IsTextPredictionEnabled="False"
@@ -48,37 +53,72 @@
 						VerticalOptions="Start"
 						   HorizontalOptions="Center"
 						   PlaceholderColor="Black"/>
-					<StackLayout x:Name="ProgressStuff" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="5,10">
-						<Label Text="{Binding Level}" HorizontalOptions="Start"/>
-						<ProgressBar x:Name="ProgressBar" Progress="{Binding Progress}" HorizontalOptions="FillAndExpand" Margin="5" ProgressColor="Black" BackgroundColor="White"/>
-						<Label Text="{Binding NextLevel}" HorizontalOptions="End"/>
-					</StackLayout>
-					
-					<StackLayout x:Name="Items" Orientation="Vertical" >
-						
-						<Label Text="Items"
+						<StackLayout x:Name="ProgressStuff" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="5,10">
+							<Label Text="{Binding Level}" HorizontalOptions="Start"/>
+							<ProgressBar x:Name="ProgressBar" Progress="{Binding Progress}" HorizontalOptions="FillAndExpand" Margin="5" ProgressColor="Black" BackgroundColor="White"/>
+							<Label Text="{Binding NextLevel}" HorizontalOptions="End"/>
+						</StackLayout>
+
+						<StackLayout x:Name="Items" Orientation="Vertical" >
+
+							<Label Text="Items"
 							   FontSize="25"
 							   FontFamily="Pirata One"
 							   HorizontalOptions="Center"/>
-						<ListView x:Name="ItemList"
+							<ListView x:Name="ItemList"
 							  ItemsSource="{Binding Items}" HorizontalOptions="Center" SeparatorColor="Black">
+								<ListView.ItemTemplate>
+									<DataTemplate>
+										<ViewCell>
+											<ViewCell.View>
+												<Frame Padding="10"
+												   Margin="5,10"
+												   BorderColor="Black"
+												   BackgroundColor="White"
+												   CornerRadius="10">
+													<StackLayout x:Name="Item" Orientation="Vertical" >
+														<Label Text="{Binding Name}" FontFamily="Pirata One" FontSize="20"/>
+														<Label Text="{Binding Effects}" FontFamily="Nyala" FontSize="15"/>
+														<StackLayout x:Name="ItemBottomRow" Orientation="Horizontal">
+															<Image Source="Assets/gold.png" WidthRequest="25" HorizontalOptions="Start" Aspect="AspectFit"/>
+															<Label Text="{Binding Cost}" FontFamily="Nyala" FontSize="20" HorizontalOptions="Start"/>
+															<Label Text="{Binding ID}" FontFamily="Nyala" FontSize="15" HorizontalOptions="EndAndExpand"/>
+														</StackLayout>
+													</StackLayout>
+
+												</Frame>
+
+											</ViewCell.View>
+										</ViewCell>
+									</DataTemplate>
+								</ListView.ItemTemplate>
+							</ListView>
+						</StackLayout>
+						<Button x:Name="addItem" Text="Add Item" Pressed="AddItem_Pressed" FontFamily="Nyala" HorizontalOptions="Center" BackgroundColor="White" BorderColor="Black"/>
+					</StackLayout>
+					<StackLayout Grid.Column="1" Orientation="Vertical" x:Name="RightColumn" Margin="80,5">
+						<Label Text="Perks"
+						   FontSize="25"
+						   VerticalOptions="Start"
+						   HorizontalOptions="Center"
+						   FontFamily="Pirata One"/>
+						<ListView x:Name="TalentList"
+							  ItemsSource="{Binding Perks}" HorizontalOptions="Center" SeparatorColor="Black" VerticalOptions="Start">
 							<ListView.ItemTemplate>
 								<DataTemplate>
 									<ViewCell>
 										<ViewCell.View>
 											<Frame Padding="10"
-												   Margin="5,10"
-												   BorderColor="Black"
-												   BackgroundColor="White"
-												   CornerRadius="10">
-												<StackLayout x:Name="Item" Orientation="Vertical" >
-													<Label Text="{Binding Name}" FontFamily="Pirata One" FontSize="20"/>
-													<Label Text="{Binding Effects}" FontFamily="Nyala" FontSize="15"/>
-													<StackLayout x:Name="ItemBottomRow" Orientation="Horizontal">
-														<Image Source="Assets/gold.png" WidthRequest="25" HorizontalOptions="Start" Aspect="AspectFit"/>
-														<Label Text="{Binding Cost}" FontFamily="Nyala" FontSize="20" HorizontalOptions="Start"/>
-														<Label Text="{Binding ID}" FontFamily="Nyala" FontSize="15" HorizontalOptions="EndAndExpand"/>
-													</StackLayout>
+									   Margin="5,10"
+									   BorderColor="Black"
+									   BackgroundColor="White"
+									   CornerRadius="10">
+												<StackLayout Orientation="Horizontal">
+													<ImageButton x:Name="Perk1" Source="{Binding Button1, Converter={StaticResource CanStartButtonOnConverter}}" IsVisible="{Binding Button1Avail, Converter={StaticResource CanStartButtonEnabledConverter}}" Aspect="AspectFit" WidthRequest="15" Clicked="Perk1_Clicked"/>
+													<ImageButton x:Name="Perk2" Source="{Binding Button2, Converter={StaticResource CanStartButtonOnConverter}}" IsVisible="{Binding Button2Avail, Converter={StaticResource CanStartButtonEnabledConverter}}" Aspect="AspectFit" WidthRequest="15" Clicked="Perk2_Clicked"/>
+													<Label Text="{Binding Effect}"
+													   FontSize="15"
+													   FontFamily="Nyala"/>
 												</StackLayout>
 
 											</Frame>
@@ -88,43 +128,11 @@
 								</DataTemplate>
 							</ListView.ItemTemplate>
 						</ListView>
+						<Button x:Name="addPerk" Text="Add Perk" Pressed="AddPerk_Pressed" FontFamily="Nyala" HorizontalOptions="Center" BackgroundColor="White" BorderColor="Black" VerticalOptions="Start"/>
 					</StackLayout>
-					<Button x:Name="addItem" Text="Add Item" Pressed="AddItem_Pressed" FontFamily="Nyala" HorizontalOptions="Center" BackgroundColor="White" BorderColor="Black"/>
-				</StackLayout>
-				<StackLayout Orientation="Vertical" x:Name="RightColumn" Margin="80,5">
-					<Label Text="Perks"
-						   FontSize="25"
-						   VerticalOptions="Start"
-						   HorizontalOptions="Center"
-						   FontFamily="Pirata One"/>
-					<ListView x:Name="TalentList"
-							  ItemsSource="{Binding Perks}" HorizontalOptions="Center" SeparatorColor="Black" VerticalOptions="Start">
-						<ListView.ItemTemplate>
-							<DataTemplate>
-								<ViewCell>
-									<ViewCell.View>
-										<Frame Padding="10"
-									   Margin="5,10"
-									   BorderColor="Black"
-									   BackgroundColor="White"
-									   CornerRadius="10">
-											<StackLayout Orientation="Horizontal">
-												<ImageButton x:Name="Perk1" Source="{Binding Button1, Converter={StaticResource CanStartButtonOnConverter}}" IsVisible="{Binding Button1Avail, Converter={StaticResource CanStartButtonEnabledConverter}}" Aspect="AspectFit" WidthRequest="15" Clicked="Perk1_Clicked"/>
-												<ImageButton x:Name="Perk2" Source="{Binding Button2, Converter={StaticResource CanStartButtonOnConverter}}" IsVisible="{Binding Button2Avail, Converter={StaticResource CanStartButtonEnabledConverter}}" Aspect="AspectFit" WidthRequest="15" Clicked="Perk2_Clicked"/>
-												<Label Text="{Binding Effect}"
-													   FontSize="15"
-													   FontFamily="Nyala"/>
-											</StackLayout>
-											
-										</Frame>
-										
-									</ViewCell.View>
-								</ViewCell>
-							</DataTemplate>
-						</ListView.ItemTemplate>
-					</ListView>
-					<Button x:Name="addPerk" Text="Add Perk" Pressed="AddPerk_Pressed" FontFamily="Nyala" HorizontalOptions="Center" BackgroundColor="White" BorderColor="Black" VerticalOptions="Start"/>
-				</StackLayout>
+				</Grid>
+				
+
 			</StackLayout>
 			<Button x:Name="delete" Text="DELETE CHARACTER" Pressed="Delete_Pressed" FontFamily="Nyala" HorizontalOptions="Center" BackgroundColor="White" BorderColor="Black" VerticalOptions="Start"/>
         </StackLayout>

@@ -5,12 +5,12 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Add a character"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-			<Entry x:Name ="Name" Placeholder="Name"/>
-			<Entry x:Name ="Class" Placeholder="Class"/>
-			<Entry x:Name="Gold" Placeholder="Gold"/>
-			<Entry x:Name="Experience" Placeholder="Experience" Completed="Experience_Completed"/>
+                VerticalOptions="Center" 
+                HorizontalOptions="CenterAndExpand" FontFamily="Pirata One"/>
+			<Entry x:Name ="Name" Placeholder="Name" VerticalOptions="Center" FontFamily="Nyala"/>
+			<Entry x:Name ="Class" Placeholder="Class" VerticalOptions="Center" FontFamily="Nyala"/>
+			<Entry x:Name="Gold" Placeholder="Gold" VerticalOptions="Center" FontFamily="Nyala"/>
+			<Entry x:Name="Experience" Placeholder="Experience" Completed="Experience_Completed" VerticalOptions="Center" FontFamily="Nyala"/>
 		</StackLayout>
     </ContentPage.Content>
 </ContentPage>

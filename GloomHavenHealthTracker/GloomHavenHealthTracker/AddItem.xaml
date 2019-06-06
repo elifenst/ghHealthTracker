@@ -5,12 +5,14 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Add an Item"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-			<Entry x:Name ="Name" Placeholder="Name"/>
-			<Entry x:Name ="Effects" Placeholder="Effects"/>
-			<Entry x:Name="Cost" Placeholder="Cost"/>
-			<Entry x:Name="ItemID" Placeholder="ItemID" Completed="ItemID_Completed"/>
+                VerticalOptions="Center" 
+                HorizontalOptions="CenterAndExpand"
+				   FontFamily="Pirata One"
+				   FontSize="25"/>
+			<Entry x:Name ="Name" Placeholder="Name" VerticalOptions="Center" FontFamily="Nyala"/>
+			<Entry x:Name ="Effects" Placeholder="Effects" VerticalOptions="Center" FontFamily="Nyala"/>
+			<Entry x:Name="Cost" Placeholder="Cost" VerticalOptions="Center" FontFamily="Nyala"/>
+			<Entry x:Name="ItemID" Placeholder="ItemID" Completed="ItemID_Completed" VerticalOptions="Center" FontFamily="Nyala"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

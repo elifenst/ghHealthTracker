@@ -37,6 +37,7 @@ namespace GloomHavenHealthTracker
 				return Takable >= 2;
 			}
 		}
+		private CharacterVM VM;
 		public int Taken
 		{
 			get
@@ -50,6 +51,8 @@ namespace GloomHavenHealthTracker
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Perk2"));
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Button1"));
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Button2"));
+				VM.SavePerk(this);
+
 			}
 		}
 		public int Takable
@@ -64,8 +67,9 @@ namespace GloomHavenHealthTracker
 			}
 		}
 		public string Effect { get; set; }
-		public PerkWrapper(Perk purk)
+		public PerkWrapper(Perk purk, CharacterVM vm)
 		{
+			VM = vm;
 			perk = purk;
 			Taken = purk.Taken;
 			Takable = purk.Takable;

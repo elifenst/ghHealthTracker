@@ -48,7 +48,7 @@ namespace GloomHavenHealthTracker
 				List < PerkWrapper > PerkWs = new List<PerkWrapper>();
 				foreach(Perk perk in perks)
 				{
-					PerkWs.Add(new PerkWrapper(perk));
+					PerkWs.Add(new PerkWrapper(perk, this));
 				}
 				Character character = new Character(hero, items.ToList(), PerkWs, this);
 				CharacterList.Add(character);
@@ -172,7 +172,7 @@ namespace GloomHavenHealthTracker
 				//update perks
 				foreach (var perk in characterInstance.Perks)
 				{
-					database.Update(perk);
+					database.Update(perk.perk);
 				}
 
 				return characterInstance.HeroID;
@@ -209,6 +209,14 @@ namespace GloomHavenHealthTracker
 				this.CharacterList.Add(newChar);
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CharacterList"));
 				return hero.HeroID;
+			}
+		}
+		public void SavePerk(PerkWrapper perk)
+		{
+			lock (collisionLock)
+			{
+					database.Update(perk.perk);
+
 			}
 		}
 	}

@@ -23,7 +23,7 @@ namespace GloomHavenHealthTracker
 			perk.Takable = Convert.ToInt32(Takable.Text);
 			perk.Taken = 0;
 			perk.PerkHeroFK = ((Character)BindingContext).HeroID;
-			((Character)BindingContext).Perks.Add(new PerkWrapper(perk));
+			((Character)BindingContext).Perks.Add(new PerkWrapper(perk, ((Character)BindingContext).myCharacterVM));
 			((Character)BindingContext).myCharacterVM.NewPerk(perk);
 			Navigation.PopAsync();
 		}

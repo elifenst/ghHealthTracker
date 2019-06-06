@@ -5,10 +5,12 @@
     <ContentPage.Content>
         <StackLayout>
 			<Label Text="Add a Perk"
-                VerticalOptions="CenterAndExpand" 
+				   FontFamily="Pirata One"
+				   FontSize="25"
+                VerticalOptions="Center" 
                 HorizontalOptions="CenterAndExpand" />
-			<Entry x:Name ="Takable" Placeholder="Takable"/>
-			<Entry x:Name ="Effect" Placeholder="Effect" Completed="PerkId_Completed"/>
+			<Entry x:Name ="Takable" VerticalOptions="Center" FontFamily="Nyala" Placeholder="How many times the perk is available"/>
+			<Entry x:Name ="Effect" VerticalOptions="Center" FontFamily="Nyala" Placeholder="Effect" Completed="PerkId_Completed"/>
 		</StackLayout>
     </ContentPage.Content>
 </ContentPage>

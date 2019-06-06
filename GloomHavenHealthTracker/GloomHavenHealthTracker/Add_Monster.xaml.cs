@@ -73,51 +73,58 @@ namespace GloomHavenHealthTracker
 				MonsterName = args.QueryText;
 			}
 			Connection con = new Connection();
-			//TODO: make level vary :)
 			string level = ((MonsterVM)BindingContext).level;
-			string query = "select Health from Monster where Name is '" + MonsterName + "' and Level is " + level;
-			List<int> dataset = con.LoadInt(query, "Health");
-			int health = dataset[0];
-			dataset.Clear();
-			query = "select Attack from Monster where Name is '" + MonsterName + "' and Level is " + level;
-			dataset = con.LoadInt(query, "Attack");
-			int attack = dataset[0];
-			dataset.Clear();
-			query = "select Move from Monster where Name is '" + MonsterName + "' and Level is " + level;
-			dataset = con.LoadInt(query, "Move");
-			int move = dataset[0];
-			dataset.Clear();
-			query = "select Range from Monster where Name is '" + MonsterName + "' and Level is " + level;
-			dataset = con.LoadInt(query, "Range");
-			int range = dataset[0];
-			dataset.Clear();
-			query = "select Shield from Monster where Name is '" + MonsterName + "' and Level is " + level;
-			dataset = con.LoadInt(query, "Shield");
-			int shield = dataset[0];
-			dataset.Clear();
-			query = "select Notes from Monster where Name is '" + MonsterName + "' and Level is " + level;
-			List<string> dataset2 = con.LoadStr(query, "Notes");
-			string Notes = dataset2[0];
-			query = "select Flying from Monster where Name is '" + MonsterName + "' and Level is " + level;
-			List<bool> dataset3 = con.LoadBool(query, "Flying");
-			bool flying = dataset3[0];
-			int Number = 0;
 			try
 			{
-				Number = Int32.Parse(StartBox.Text);
+				string query = "select Health from Monster where Name is '" + MonsterName + "' and Level is " + level;
+				List<int> dataset = con.LoadInt(query, "Health");
+				int health = dataset[0];
+				dataset.Clear();
+				query = "select Attack from Monster where Name is '" + MonsterName + "' and Level is " + level;
+				dataset = con.LoadInt(query, "Attack");
+				int attack = dataset[0];
+				dataset.Clear();
+				query = "select Move from Monster where Name is '" + MonsterName + "' and Level is " + level;
+				dataset = con.LoadInt(query, "Move");
+				int move = dataset[0];
+				dataset.Clear();
+				query = "select Range from Monster where Name is '" + MonsterName + "' and Level is " + level;
+				dataset = con.LoadInt(query, "Range");
+				int range = dataset[0];
+				dataset.Clear();
+				query = "select Shield from Monster where Name is '" + MonsterName + "' and Level is " + level;
+				dataset = con.LoadInt(query, "Shield");
+				int shield = dataset[0];
+				dataset.Clear();
+				query = "select Notes from Monster where Name is '" + MonsterName + "' and Level is " + level;
+				List<string> dataset2 = con.LoadStr(query, "Notes");
+				string Notes = dataset2[0];
+				query = "select Flying from Monster where Name is '" + MonsterName + "' and Level is " + level;
+				List<bool> dataset3 = con.LoadBool(query, "Flying");
+				bool flying = dataset3[0];
+				int Number = 0;
+				try
+				{
+					Number = Int32.Parse(StartBox.Text);
 
+				}
+				catch (FormatException)
+				{
+					System.Diagnostics.Debug.WriteLine("unable to parse for number");
+				}
+				catch (ArgumentNullException)
+				{
+
+				}
+
+				Monster monster = new Monster(health, MonsterName, attack, move, range, flying, shield, Notes, Number);
+				((MonsterVM)BindingContext).add(monster);
 			}
-			catch (FormatException)
+			catch
 			{
-				System.Diagnostics.Debug.WriteLine("unable to parse for number");
-			}
-			catch (ArgumentNullException)
-			{
 
 			}
 
-			Monster monster = new Monster(health, MonsterName, attack, move, range, flying, shield, Notes, Number);
-			((MonsterVM)BindingContext).add(monster);
 			Navigation.PopAsync();
 		}
 	}
